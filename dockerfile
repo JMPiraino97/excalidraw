@@ -12,7 +12,7 @@ RUN apk add --no-cache git \
     --branch "${EXCALIDRAW_VER}" \
     https://github.com/excalidraw/excalidraw.git .
 
-# Using Yarn classic to install Excalidraw JavaScript dependencies and using applciation build script to produce static files.
+# Using Yarn classic to install Excalidraw JavaScript dependencies and using Excalidraw's application build script to produce static files.
 RUN corepack enable \
     && yarn install --frozen-lockfile \
     && yarn build:app:docker
