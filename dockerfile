@@ -17,7 +17,7 @@ RUN corepack enable \
     && yarn install --frozen-lockfile \
     && yarn build:app:docker
 
-# Using NGINX base image to serve Excalidraw's static content on port 8080, to ensure PSA compliance.
+# Using NGINX base image to serve Excalidraw's static content on port 8080
 FROM nginxinc/nginx-unprivileged:stable-alpine3.24
 # Applying security updates to remediate alpine 3.24 vulnerabiltiies
 USER root
