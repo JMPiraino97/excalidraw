@@ -18,7 +18,7 @@ RUN corepack enable \
     && yarn build:app:docker
 
 # Using NGINX base image to serve Excalidraw's static content on port 8080, to ensure PSA compliance.
-FROM nginxinc/nginx-unprivileged:stable-alpine
+FROM nginxinc/nginx-unprivileged:stable-alpine3.24
 # Copying static content into NGINX's document root
 COPY --from=build /opt/excalidraw/excalidraw-app/build/ \
      /usr/share/nginx/html/
