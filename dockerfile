@@ -19,6 +19,8 @@ RUN corepack enable \
 
 # Using NGINX base image to serve Excalidraw's static content on port 8080, to ensure PSA compliance.
 FROM nginxinc/nginx-unprivileged:stable-alpine3.24
+# Trying to apply security upgrades
+RUN apk upgrade --no-cache
 # Copying static content into NGINX's document root
 COPY --from=build /opt/excalidraw/excalidraw-app/build/ \
      /usr/share/nginx/html/
