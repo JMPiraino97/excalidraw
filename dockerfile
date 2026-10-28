@@ -3,12 +3,13 @@ FROM node:22-alpine AS build
 
 ARG EXCALIDRAW_VER=v0.18.1
 
-WORKDIR /opt/excalidraw 
+WORKDIR /opt/excalidraw
 
+# Installing git patch
+RUN apk add --no-cache git patch
 # Using git clone to clone the repository release tag
 RUN apk add --no-cache git \
     && git clone \
-    && git patch \
     --depth 1 \
     --branch "${EXCALIDRAW_VER}" \
     https://github.com/excalidraw/excalidraw.git .
