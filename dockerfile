@@ -3,14 +3,20 @@ FROM node:22-alpine AS build
 
 ARG EXCALIDRAW_VER=v0.18.1
 
-WORKDIR /opt/excalidraw 
+WORKDIR /opt/excalidraw
 
+# Installing git patch
+RUN apk add --no-cache git patch
 # Using git clone to clone the repository release tag
 RUN apk add --no-cache git \
     && git clone \
     --depth 1 \
     --branch "${EXCALIDRAW_VER}" \
     https://github.com/excalidraw/excalidraw.git .
+
+# Copying and applying patch, which removes upstream links from command pallette
+COPY patches/remove-upstream-links.patch /tmp/remove-upstream-links.patch
+RUN patch -p1 < /tmp/remove-upstream-links.patch
 
 # Using Yarn classic to install Excalidraw JavaScript dependencies and using Excalidraw's application build script to produce static files.
 RUN corepack enable \
