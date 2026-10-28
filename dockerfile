@@ -5,6 +5,9 @@ ARG EXCALIDRAW_VER=v0.18.1
 
 WORKDIR /opt/excalidraw 
 
+# Installing git patch
+RUN apk add --no-cache git patch
+
 # Using git clone to clone the repository release tag
 RUN apk add --no-cache git \
     && git clone \
