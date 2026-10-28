@@ -12,6 +12,10 @@ RUN apk add --no-cache git \
     --branch "${EXCALIDRAW_VER}" \
     https://github.com/excalidraw/excalidraw.git .
 
+# Adding patch file, which removes upstream links from the command pallette, to the build stage
+COPY patches/remove-upstream-links.patch /tmp/remove-upstream-links.patch
+RUN patch -p1 < /tmp/remove-upstream-links.patch
+
 # Using Yarn classic to install Excalidraw JavaScript dependencies and using Excalidraw's application build script to produce static files.
 RUN corepack enable \
     && yarn install --frozen-lockfile \
