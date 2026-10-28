@@ -8,9 +8,14 @@ WORKDIR /opt/excalidraw
 # Using git clone to clone the repository release tag
 RUN apk add --no-cache git \
     && git clone \
+    && git patch \
     --depth 1 \
     --branch "${EXCALIDRAW_VER}" \
     https://github.com/excalidraw/excalidraw.git .
+
+# Copying and applying patch, which removes upstream links from command pallette
+COPY patches/remove-upstream-links.patch /tmp/remove-upstream-links.patch
+RUN patch -p1 < /tmp/remove-upstream-links.patch
 
 # Using Yarn classic to install Excalidraw JavaScript dependencies and using Excalidraw's application build script to produce static files.
 RUN corepack enable \
