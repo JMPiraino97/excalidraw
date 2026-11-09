@@ -119,6 +119,7 @@ jobs:
         runs-on: ubuntu-latest
         permissions:
           contents: read
+          packages: write
 
         steps:
           - name: Checkout repository
@@ -157,4 +158,4 @@ jobs:
             
           - name: Push Helm Chart to GHCR
             run: |
-              helm push ./dist/*.tgz oci://ghcr.io/jmpiraino97
+              helm push ./dist/*.tgz oci://ghcr.io/jmpiraino97/helm-charts
