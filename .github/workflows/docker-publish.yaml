@@ -15,7 +15,7 @@ env:
   REGISTRY: ghcr.io
   # github.repository as <account>/<repo>
   IMAGE_NAME: ${{ github.repository }}
-
+  APP_VERSION: v0.0.7-beta
 
 jobs:
   build-scan:
@@ -142,8 +142,19 @@ jobs:
               exit-code: '1'
 
           # Packaging helm chart to a .tgz
-          - name: Package Helm Chart
+          - name: Package
             run: |
               mkdir -p dist
-              helm package ./helm/excalidraw \
-                --destination ./dist
+              helm package ./helm/excalidraw --app-version "${VERSION}" --destination ./dist
+
+          - name: Login to GHCR
+            env:
+              GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+            run: |
+              echo "$GITHUB_TOKEN" | helm registry login ghcr.io \
+                --username "${{ github.actor }}" \
+                --password-stdin
+            
+          - name: Push Helm Chart to GHCR
+            run: |
+              helm push ./dist/*.tgz oci://ghcr.io/jmpiraino97/helm-charts
