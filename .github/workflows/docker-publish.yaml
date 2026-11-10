@@ -148,7 +148,7 @@ jobs:
           - name: Package
             run: |
               mkdir -p dist
-              helm package ./helm/excalidraw --app-version "${VERSION}" --destination ./dist
+              helm package ./helm/excalidraw --app-version "${APP_VERSION}" --destination ./dist
 
           - name: Login to GHCR
             env:
