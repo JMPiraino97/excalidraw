@@ -7,7 +7,7 @@ spec:
   replicas: {{ .Values.replicaCount }}
   selector:
     matchLabels:
-      {{- include "excalidraw.labels" . | nindent 8 }}
+      app: {{ include "excalidraw.fullname" . }}
   template:
     metadata:
       labels:
