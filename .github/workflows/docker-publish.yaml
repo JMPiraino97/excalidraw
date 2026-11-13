@@ -15,7 +15,7 @@ env:
   REGISTRY: ghcr.io
   # github.repository as <account>/<repo>
   IMAGE_NAME: ${{ github.repository }}
-  APP_VERSION: v0.0.7-beta
+  APP_VERSION: v0.0.8-beta
 
 jobs:
   build-scan:
