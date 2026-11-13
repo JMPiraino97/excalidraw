@@ -28,7 +28,9 @@ FROM nginxinc/nginx-unprivileged:stable-alpine3.24
 
 # Applying security updates to remediate alpine 3.24 vulnerabilties
 USER root
-RUN apk upgrade --no-cache
+RUN apk upgrade --no-cache \
+ && apk update \
+ && apk add --no-cache --upgrade chromium
 
 # Copying static content into NGINX's document root
 COPY --from=build /opt/excalidraw/excalidraw-app/build/ \
